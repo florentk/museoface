@@ -1,5 +1,5 @@
 <?php
-class VisteurModel extends CI_Model {
+class VisiteurModel extends CI_Model {
 
   public function __construct()
   {
@@ -8,9 +8,31 @@ class VisteurModel extends CI_Model {
   }
 
 	function addVisiteur($pseudo, $mail){
-		$this->db->insert('visiteur', $pseudo, $mail);
+		$this->db->insert('visiteur', array( 'pseudo' => $pseudo, 'mail' => $mail));
 		return $this->db->insert_id();
 	}
+	
+	function setQueteId($id,$quete){
+    $this->db->where('visiteur_id', $id);
+    $this->db->update('visiteur', array('quete_id' => $quete));
+	}
+	
+	function setPortraitId($id,$portrait){
+    $this->db->where('visiteur_id', $id);
+    $this->db->update('visiteur', array('portrait_id' => $portrait));
+	}
+	
+	function setFondId($id,$fond){
+    $this->db->where('visiteur_id', $id);
+    $this->db->update('visiteur', array('fond_id' => $fond));
+	}	
+	
+	function setImageId($id,$image){
+    $this->db->where('visiteur_id', $id);
+    $this->db->update('visiteur', array('image_id' => $image));
+	}		
+	
+	
 	
 	function getVisiteur($id){
 	 $query = $this->db->get_where('visiteur', array( 'visiteur_id' => $id ));
@@ -18,7 +40,7 @@ class VisteurModel extends CI_Model {
 	}
 	
 	function getVisiteurFromMail($mail){
-	 $query = $this->db->get_where('visiteur', array('UPPER(mail)' => strtoupper(trim($mail)));
+	 $query = $this->db->get_where('visiteur', array('UPPER(mail)' => strtoupper(trim($mail))));
    return $query->row();
 	}
 	
