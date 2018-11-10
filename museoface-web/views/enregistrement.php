@@ -17,7 +17,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <?php echo form_open('welcome/ajout_visiteur'); ?>
 
 				  
-		  <div>
+		  <div id=form>
 				  <?php echo form_input('pseudo', set_value("nom") , 'placeholder="Pseudo" autofocus'); ?>
 				  <?php echo form_input('email', set_value("email"), 'placeholder="Mail"'); ?>
 		  </div>
@@ -28,7 +28,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 	</div>
 
-	<p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds. <?php echo  (ENVIRONMENT === 'development') ?  'CodeIgniter Version <strong>' . CI_VERSION . '</strong>' : '' ?></p>
+	<p class="footer">Museoface</p>
 </div>
 
 </body>

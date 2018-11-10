@@ -45,7 +45,7 @@ class VisiteurModel extends CI_Model {
 	}
 	
 	function getPortrait($id){
-	 $query = $this->db->get_where('portrait', array('' => $id));
+	 $query = $this->db->get_where('portrait', array('portrait_id' => $id));
    return $query->row();
 	}
 	
