@@ -11,6 +11,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 <div id="container">
 	<h1><?php echo $titre ; ?></h1>
+	
+	<?php 
+	if($recommence)
+	  echo "<h2>C'est le mauvais portrait, recommence !</h2>"
+  ?>
 
 	<div id="body">
 

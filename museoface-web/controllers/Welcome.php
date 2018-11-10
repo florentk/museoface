@@ -13,7 +13,7 @@ class Welcome extends CI_Controller {
 
 	public function index()
 	{
-		$this->load->view('welcome_message');
+		$this->enregistrement();
 	}
 
 	public function enregistrement()
@@ -38,8 +38,53 @@ class Welcome extends CI_Controller {
 	}
 	
 	
-	verif_portrait
-	public function valide_portrait()
+	public function verif_portrait()
+	{
+		$login_id = $this->session->userdata("visiteur_id");
+	  $quete_id = $this->input->get('quete');
+	  $v = $this->VisiteurModel->getVisiteur($login_id);
+	  $p = $this->VisiteurModel->getPortraitFromQuete($v->quete_id);
+	 
+	  $code = $this->input->post('portrait_id');
+	 
+	  if ($p->portrait_id == $code){
+	    $this->VisiteurModel->setPortraitId($login_id,$p->portrait_id);
+	    redirect( base_url("index.php/welcome/choix_fond"));
+	  }else
+	    $this->valide_portrait(1);
+	  
+	}
+	
+	public function choix_fond()
+	{
+			$login_id = $this->session->userdata("visiteur_id");
+	    $v = $this->VisiteurModel->getVisiteur($login_id);
+	    if($v->portrait_id){
+	      $this->load->view('choix_fond');
+	    }else
+	      valide_portrait($recommence=1);
+	}
+	
+	public function valide_fond()
+	{
+	  $fond_id = $this->input->post('fond_id');
+		$login_id = $this->session->userdata("visiteur_id");
+	  $v = $this->VisiteurModel->getVisiteur($login_id);	  
+	  $file_name =  "img/fond_$fond_id.jpg";
+	  if(file_exists( $file_name )){
+	    $this->VisiteurModel->setFondId($login_id,$fond_id);
+	    $data['portrait'] = $this->VisiteurModel->getPortrait($v->portrait_id);
+		  $data['pseudo'] = $v->pseudo;
+		  $data['fond_id'] = $fond_id;
+		  $data['email'] = $v->mail;
+		  $data['img'] = $file_name;
+	    $this->load->view('fin',$data);
+	  }else
+	    $this->choix_fond();
+	  
+	}
+	
+	public function valide_portrait($recomence=0)
 	{
 	  $login_id = $this->session->userdata("visiteur_id");
 	  $quete_id = $this->input->get('quete');
@@ -47,6 +92,7 @@ class Welcome extends CI_Controller {
 	  $p = $this->VisiteurModel->getPortraitFromQuete($v->quete_id);
 	  $data['titre'] = $p->titre;
 	  $data['desc'] = $p->descriptif;
+	  $data['recommence'] = $recomence;
 	  
 	  $this->load->view('valide_quete',$data);
 	}

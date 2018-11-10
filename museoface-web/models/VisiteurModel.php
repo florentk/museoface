@@ -30,7 +30,7 @@ class VisiteurModel extends CI_Model {
 	function setImageId($id,$image){
     $this->db->where('visiteur_id', $id);
     $this->db->update('visiteur', array('image_id' => $image));
-	}		
+	}
 	
 	
 	
