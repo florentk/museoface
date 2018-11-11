@@ -24,6 +24,11 @@ low_V_name = 'Low V'
 high_H_name = 'High H'
 high_S_name = 'High S'
 high_V_name = 'High V'
+
+enregistre= 0
+annule = 0
+etat = 0
+
 def on_low_H_thresh_trackbar(val):
     global low_H
     global high_H
@@ -62,6 +67,20 @@ def on_high_V_thresh_trackbar(val):
     cv.setTrackbarPos(high_V_name, window_detection_name, high_V)
     
     
+def on_low_zoom(val):
+    global zoom
+    zoom = val
+    
+def on_mouse(event, x, y, flags, param):
+    global enregistre
+    global annule
+    if(event == cv.EVENT_LBUTTONUP):
+      enregistre = 1
+
+    if(event == cv.EVENT_RBUTTONUP):
+      annule = 1
+      
+    
 def transform(frame, fgmask,newbg):
 
    # mask2 = np.where((fgmask==0),-1,1).astype('uint8')
@@ -75,9 +94,14 @@ def transform(frame, fgmask,newbg):
     #cv.imshow('frame',bg)
     
     return cv.add(bg, fg)
-
     
+def send_image(image_file):
+  print ("send")
+
+
 cap = cv.VideoCapture(0)
+
+
 cv.namedWindow(window_capture_name)
 cv.namedWindow(window_detection_name)
 cv.createTrackbar(low_H_name, window_detection_name , low_H, max_value_H, on_low_H_thresh_trackbar)
@@ -87,6 +111,10 @@ cv.createTrackbar(high_S_name, window_detection_name , high_S, max_value, on_hig
 cv.createTrackbar(low_V_name, window_detection_name , low_V, max_value, on_low_V_thresh_trackbar)
 cv.createTrackbar(high_V_name, window_detection_name , high_V, max_value, on_high_V_thresh_trackbar)
 
+cv.namedWindow("result")
+cv.createTrackbar("zoom", "result" , 0, 100, on_low_zoom)
+cv.setMouseCallback("result", on_mouse);
+
 newbg_orig = cv.imread('fond.jpg',cv.IMREAD_COLOR)
 
 width = int(cap.get(3))
@@ -94,7 +122,6 @@ height = int(cap.get(4))
 
 newbg = cv.resize(newbg_orig, (width, height)) 
 
-etat = 0
 
 while True:
 
@@ -103,9 +130,13 @@ while True:
       cv.imshow('result', photo)
     
       key = cv.waitKey(30)
-      if key == ord('q') or key == 27:
+      if key == ord('q') or key == 27 or (annule == 1):
         etat = 0
-      
+        annule = 0
+        
+      if key == ord('e') or (enregistre == 1):
+        send_image('result.jpg')
+        break
     else:
     
       ret, frame = cap.read()
@@ -122,14 +153,20 @@ while True:
       
       cv.imshow('result',result)
       
+      cv.moveWindow("result", 0, 0);
+      cv.setWindowProperty("result", cv.WND_PROP_FULLSCREEN, cv.WINDOW_FULLSCREEN);
+      
       key = cv.waitKey(30)
       if key == ord('q') or key == 27:
           break
           
-      if key == ord('e'):
+      if key == ord('e') or (enregistre == 1):
+          enregistre = 0
           photo = result
           cv.imwrite('result.jpg',photo)
           etat = 1
         
       
+
+
 
