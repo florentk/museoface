@@ -12,6 +12,7 @@ import sys
 import base64
 from urllib.request import urlopen
 import os.path
+from subprocess import call
 
 
 URL_APP="http://localhost/museoface/index.php/welcome/"
@@ -108,8 +109,9 @@ def get_fond(email):
 
 def send_image(image_file):
   global email
-  print ("send to " + email)
-
+  args = ["curl", "-F", "email="+email, "-F", "result=@" + image_file, URL_APP+"send_image"]
+  print (args)
+  call(args)
 
 email = sys.argv[1]
 
@@ -137,7 +139,7 @@ fond_file = 'fond_'+fond_id+'.jpg'
 
 print ("try to open file " + fond_file)
 
-if( not os.path.exists(fond_file)):
+if((len(fond_file) > 20) or (not os.path.exists(fond_file))):
   fond_file = "fond.jpg"
   print ("use default file")
 

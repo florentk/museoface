@@ -12,4 +12,9 @@
 
 TIMN ZENX OCQU VNUH HPDZ QPQF HKEN FPHU NKWK NCRU MNRX UQKJ RNUB
 
+http://museoface.site/
+
+sudo apt install numpy opencv-python
+
+sudo apt install dialog
 
