@@ -8,6 +8,13 @@
 import cv2 as cv
 import numpy as np
 import argparse
+import sys
+import base64
+from urllib.request import urlopen
+import os.path
+
+
+URL_APP="http://localhost/museoface/index.php/welcome/"
 max_value = 255
 max_value_H = 360//2
 low_H = 0
@@ -94,13 +101,24 @@ def transform(frame, fgmask,newbg):
     #cv.imshow('frame',bg)
     
     return cv.add(bg, fg)
-    
+
+def get_fond(email):
+  content = urlopen(URL_APP + "get_fond?email=" + email).read()
+  return content
+
 def send_image(image_file):
-  print ("send")
+  global email
+  print ("send to " + email)
+
+
+email = sys.argv[1]
+
+
+fond_id_ = get_fond(email).decode('utf-8')
+fond_id = fond_id_[1:]
 
 
 cap = cv.VideoCapture(0)
-
 
 cv.namedWindow(window_capture_name)
 cv.namedWindow(window_detection_name)
@@ -115,7 +133,15 @@ cv.namedWindow("result")
 cv.createTrackbar("zoom", "result" , 0, 100, on_low_zoom)
 cv.setMouseCallback("result", on_mouse);
 
-newbg_orig = cv.imread('fond.jpg',cv.IMREAD_COLOR)
+fond_file = 'fond_'+fond_id+'.jpg'
+
+print ("try to open file " + fond_file)
+
+if( not os.path.exists(fond_file)):
+  fond_file = "fond.jpg"
+  print ("use default file")
+
+newbg_orig = cv.imread(fond_file,cv.IMREAD_COLOR)
 
 width = int(cap.get(3))
 height = int(cap.get(4))
