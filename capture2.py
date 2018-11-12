@@ -15,7 +15,7 @@ import os.path
 from subprocess import call
 
 
-URL_APP="http://localhost/museoface/index.php/welcome/"
+URL_APP="http://museoface.site/index.php/welcome/"
 max_value = 255
 max_value_H = 360//2
 low_H = 0
@@ -171,7 +171,7 @@ while True:
       if frame is None:
           break
       frame_HSV = cv.cvtColor(frame, cv.COLOR_BGR2HSV)
-      frame_threshold = cv.inRange(frame_HSV, (40, low_S, low_V), (high_H, high_S, high_V))
+      frame_threshold = cv.inRange(frame_HSV, (low_H, low_S, low_V), (high_H, high_S, high_V))
       
       
       cv.imshow(window_capture_name, frame)
