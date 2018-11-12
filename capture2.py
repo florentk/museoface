@@ -15,10 +15,6 @@ import os.path
 from subprocess import call
 
 
-<<<<<<< HEAD
-#URL_APP="http://localhost/museoface/index.php/welcome/"
-=======
->>>>>>> b00cac5061ec7bd7252db370aa41e56ed49369f5
 URL_APP="http://museoface.site/index.php/welcome/"
 max_value = 255
 max_value_H = 360//2
@@ -179,7 +175,7 @@ while True:
       
       
       cv.imshow(window_capture_name, frame)
-      cv.imshow("mask", frame_threshold)
+      #cv.imshow(window_detection_name, frame_threshold)
       
       result = transform(frame,frame_threshold,newbg)
       
@@ -199,6 +195,4 @@ while True:
           etat = 1
         
       
-
-
 
