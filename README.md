@@ -35,6 +35,25 @@ Resitution
 
 Le visteur doit faire le parcours avec l'application web pour pouvoir associer son pseudo à l'oeuvre de fond choisi. Une fois la photo prise et envoyée comme indiqué ci-dessus, le visiteur peut voir son portrait sur la gallerie à cette adresse : http://museoface.site/index.php/welcome/gallery
 
+Uilisation autonome
+-------------------
+
+Pour que le visiteur puisse être autonome, quelques réglage s'impose. D'abord fait le réglage précedement pour trouver les bonne valeurs. Ensuite dans le fichier `capture2.py`, modifiez ces lignes en début de fichier :
+
+```
+low_H = 0
+low_S = 0
+low_V = 0
+high_H = max_value_H
+high_S = max_value
+high_V = max_value
+```
+
+En remplaçant les 6 valeurs par celles trouvées par le réglage effectué précédement.
+
+Enregistrez et fermé le fichier. Maintenant lancez une autre application `./home.py`. Une fenêtre s'ouvre. Le visiteur peut rentrer lui même son pseudo, puis prendre la photo et la valider comme décrit ci-dessus. Une fois validée et envoyée, la fenêtre pour recommencer ou rentrer un nouveau pseudo s'ouvre de nouveau. 
+
+
 Auteurs
 -------
 L'équipe Les perchés Museomix Nord 2018
