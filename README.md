@@ -1,9 +1,14 @@
-Si votre le materiel et le logiciel est déjà installée et configurée, vous avez juste à lancer le script 'home.py' dans le répertoire `museoface`. Vous pouvez alors :
+Mise en route
+=============
+
+Si votre le materiel et le logiciel est déjà installée et configurée), vous avez juste à lancer le script `home.py` dans le répertoire `museoface`. Vous pouvez alors :
 
 - Choisir le pseudo
 - Prendre la photo avec un clique gauche
 - Recommencer avec un clique droit
 - Doucle-clique pour valider et envoyer la photo vers la galerie (si le visiteur a fait le parcours complet)
+
+L'application à besoin d'une système avec acces à internet. Vérifiez que vous être bien connecté à Internet en lancant un navigatuer web. Bien vous identifier si le wifi du musée vous le demande (par exemple en en entrant une adresse mail).
 
 Utilisation avancée
 ===================
@@ -11,16 +16,7 @@ Utilisation avancée
 Préambule
 ---------
 
-Ceci un est prototype de preuve d'un concepte, il n'est pas destinnée à être opérationnel sans une assistance technique présente sur place.
-
-L'application à besoin d'une système avec acces à internet et une webcam. L'application utilise python avec openCV, vérifiez que ces paquets soient bien installés.
-
-Les images de fonds doivent être tous nommées `fond_ZZZZ.jpg` où ZZZZ est un code à quatre chiffres correcpondant à l'oeuvre representée par l'image. Ces fichiers d'images doivent être dans le même repertoire que le script `./capture2.py`. Vous pouvez télécharger un jeu d'image à cet adresse : http://museoface.site/misc/img.tar 
-
-Préparation
------------
-
-Vérifiez que vous être bien connecté à Internet en lancant un navigatuer web. Bien vous identifier si le wifi du musée vous le demande (par exemple en en entrant une adresse mail).
+Ceci un est prototype de preuve d'un concepte, il n'est pas destinnée à être opérationnel sans une assistance technique présente sur place. L'application utilise python avec openCV, vérifiez que ces paquets soient bien installés. Une webcam doit également être branché est configurée.
 
 Réglage
 -------
@@ -30,8 +26,10 @@ Ouvrir un terminal. Rentrer dans le repertoire "museoface" : `cd museoface`.
 Lancer l'application de capture : `./capture2.py un_pseudo`. Trois fenêtre s'ouvre :
 
 - Le résultat ('result')  : L'oeuvre de fond associé au pseudo s'affiche. Si le pseudo est inconnu, une oeuvre par défaut s'affiche (le chien).
-- Object Detection : avec les différents réglages essayez de replacer le fond vert par l'oeuvre tout en voyant les personnes devant le fond vert sur l'image.
+- Object Detection : avec les différents réglages essayez de replacer le fond vert par l'oeuvre tout en voyant les personnes devant le fond vert sur l'image. Vous pouvez également utiliser l'outils ``
 - Video Capture : L'image original non transformée et capturée.
+
+Les images de fonds doivent être tous nommées `fond_ZZZZ.jpg` où ZZZZ est un code à quatre chiffres correcpondant à l'oeuvre representée par l'image. Ces fichiers d'images doivent être dans le même repertoire que le script `./capture2.py`. Vous pouvez télécharger un jeu d'image à cet adresse : http://museoface.site/misc/img.tar 
 
 Pour changer l'oeuvre par défaut (quand le pseud n'est pas reconnu), remplacer le fichier `fond.jpg` par une image de votre choix. 
 
